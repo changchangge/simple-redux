@@ -1,20 +1,17 @@
 module.exports = {
-  rootDir:"./",
-  roots: [
-    "<rootDir>/tests/"
-  ],
-  preset: 'ts-jest',
+  roots: ['<rootDir>/tests'],
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.json',
+    },
+  },
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.ts?$': 'ts-jest',
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testEnvironment: 'node',
-  collectCoverageFrom:[
-    "<rootDir>/src/"
-  ],
-  coveragePathIgnorePatterns: [
-    "<rootDir>/node_modules/",
-    "<rootDir>/test/",
-  ]
+  collectCoverageFrom: ['src/**/*'],
+  coveragePathIgnorePatterns: ['node_modules', '<rootDir>/test'],
+  verbose: true,
 };

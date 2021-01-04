@@ -1,4 +1,4 @@
-import test from '../src/test';
+import test from '../src';
 
 describe('test', () => {
   it('test测试', () => {

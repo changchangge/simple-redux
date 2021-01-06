@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1609759464035" clover="3.2.0">
-  <project timestamp="1609759464035" name="All files">
+<coverage generated="1609913825995" clover="3.2.0">
+  <project timestamp="1609913825995" name="All files">
     <metrics statements="4" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1" elements="7" coveredelements="5" complexity="0" loc="4" ncloc="4" packages="1" files="1" classes="1"/>
     <file name="index.ts" path="/Users/zelunfeng/Desktop/github/simple-redux/src/index.ts">
       <metrics statements="4" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>

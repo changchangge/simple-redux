@@ -10,7 +10,7 @@ describe('demo-1 test', () => {
         lovecc: 1,
       },
     };
-    
+
     let temp1 = initState.cc.loveyashi;
     let temp2 = initState.yashi.lovecc;
 

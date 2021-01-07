@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "simple redux",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "repository": "git@github.com:changchangge/simple-redux.git",
   "author": "changchangge <1173484831@qq.com>",
   "license": "MIT",

@@ -8,14 +8,14 @@ describe('demo-2 test', () => {
           return {
             ...state,
             cc: {
-              loveyashi: state.cc.loveyashi++,
+              loveyashi: 2,
             },
           };
         case 'YASHIINCREMENT':
           return {
             ...state,
             yashi: {
-              lovecc: state.yashi.lovecc++,
+              lovecc: 2,
             },
           };
         default:

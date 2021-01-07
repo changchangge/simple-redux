@@ -12,6 +12,6 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testEnvironment: 'node',
   collectCoverageFrom: ['<rootDir>/src/**/*'],
-  coveragePathIgnorePatterns: ['<rootDir>/node_modules', '<rootDir>/test'],
+  coveragePathIgnorePatterns: ['<rootDir>/node_modules', '<rootDir>/tests'],
   verbose: true,
 };

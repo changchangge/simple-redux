@@ -1,10 +1,16 @@
-interface state {
+import { Reducer } from './types/reducers';
+
+interface State {
   [key: string]: any;
+}
+
+interface Action {
+  type: string;
 }
 
 type listener = () => any;
 
-function createStore(initState: state): any {
+function createStore(reducer: Reducer, initState: State): any {
   let state = initState;
   const listeners: listener[] = [];
 
@@ -12,20 +18,20 @@ function createStore(initState: state): any {
     listeners.push(listener);
   }
 
-  function changeState(newState: state): void {
-    state = newState;
+  function dispatch(action: Action): void {
+    state = reducer(state, action);
     for (let i = 0; i < listeners.length; i++) {
       listeners[i]();
     }
   }
 
-  function getState(): state {
+  function getState(): State {
     return state;
   }
 
   return {
     subscribe,
-    changeState,
+    dispatch,
     getState,
   };
 }

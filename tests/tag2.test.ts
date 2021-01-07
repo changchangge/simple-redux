@@ -1,7 +1,28 @@
 import { createStore } from '../src';
 
-describe('demo-1 test', () => {
+describe('demo-2 test', () => {
   it('createStore测试', () => {
+    function reducer(state, action) {
+      switch (action.type) {
+        case 'CCINCREMENT':
+          return {
+            ...state,
+            cc: {
+              loveyashi: state.cc.loveyashi++,
+            },
+          };
+        case 'YASHIINCREMENT':
+          return {
+            ...state,
+            yashi: {
+              lovecc: state.yashi.lovecc++,
+            },
+          };
+        default:
+          return state;
+      }
+    }
+
     let initState = {
       cc: {
         loveyashi: 1,
@@ -14,7 +35,7 @@ describe('demo-1 test', () => {
     let temp1 = initState.cc.loveyashi;
     let temp2 = initState.yashi.lovecc;
 
-    let store = createStore(initState);
+    let store = createStore(reducer, initState);
 
     store.subscribe(() => {
       let state = store.getState();
@@ -26,21 +47,15 @@ describe('demo-1 test', () => {
       temp2 = state.yashi.lovecc;
     });
 
-    store.changeState({
-      ...store.getState(),
-      cc: {
-        loveyashi: 2,
-      },
+    store.dispatch({
+      type: 'CCINCREMENT',
     });
 
     expect(temp1).toBe(2);
     expect(temp2).toBe(1);
 
-    store.changeState({
-      ...store.getState(),
-      yashi: {
-        lovecc: 2,
-      },
+    store.dispatch({
+      type: 'YASHIINCREMENT',
     });
 
     expect(temp1).toBe(2);

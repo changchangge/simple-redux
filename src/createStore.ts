@@ -1,12 +1,6 @@
 import { Reducer } from './types/reducers';
-
-interface State {
-  [key: string]: any;
-}
-
-interface Action {
-  type: string;
-}
+import { AnyAction } from './types/action';
+import { State } from './types/store';
 
 type listener = () => any;
 
@@ -18,7 +12,7 @@ function createStore(reducer: Reducer, initState: State): any {
     listeners.push(listener);
   }
 
-  function dispatch(action: Action): void {
+  function dispatch(action: AnyAction): void {
     state = reducer(state, action);
     for (let i = 0; i < listeners.length; i++) {
       listeners[i]();

@@ -1,64 +1,79 @@
-import { createStore } from '../src';
+import { createStore, combineReducers } from '../src';
 
 describe('demo-2 test', () => {
   it('createStore测试', () => {
-    function reducer(state, action) {
+    function ccReducer(state, action) {
       switch (action.type) {
-        case 'CCINCREMENT':
+        case 'loveYashiAdd1':
           return {
-            ...state,
-            cc: {
-              loveyashi: 2,
-            },
+            loveYashi: state.loveYashi + 1,
           };
-        case 'YASHIINCREMENT':
+        case 'loveYashiAdd2': {
           return {
-            ...state,
-            yashi: {
-              lovecc: 2,
-            },
+            loveYashi: state.loveYashi + 2,
           };
+        }
         default:
           return state;
       }
     }
 
+    function yashiReducer(state, action) {
+      switch (action.type) {
+        case 'loveCcAdd1':
+          return {
+            loveCc: state.loveCc + 1,
+          };
+        case 'loveCcAdd2': {
+          return {
+            loveCc: state.loveCc + 2,
+          };
+        }
+        default:
+          return state;
+      }
+    }
+
+    const reducer = combineReducers({
+      cc: ccReducer,
+      yashi: yashiReducer,
+    });
+
     let initState = {
       cc: {
-        loveyashi: 1,
+        loveYashi: 1,
       },
       yashi: {
-        lovecc: 1,
+        loveCc: 1,
       },
     };
 
-    let temp1 = initState.cc.loveyashi;
-    let temp2 = initState.yashi.lovecc;
-
     let store = createStore(reducer, initState);
 
-    store.subscribe(() => {
-      let state = store.getState();
-      temp1 = state.cc.loveyashi;
-    });
+    let loveYashi = initState.cc.loveYashi;
+    let loveCc = initState.yashi.loveCc;
 
     store.subscribe(() => {
       let state = store.getState();
-      temp2 = state.yashi.lovecc;
+      loveCc = state.yashi.loveCc;
+      loveYashi = state.cc.loveYashi;
     });
+
+    expect(loveYashi).toBe(1);
+    expect(loveCc).toBe(1);
 
     store.dispatch({
-      type: 'CCINCREMENT',
+      type: 'loveYashiAdd1',
     });
 
-    expect(temp1).toBe(2);
-    expect(temp2).toBe(1);
+    expect(loveYashi).toBe(2);
+    expect(loveCc).toBe(1);
 
     store.dispatch({
-      type: 'YASHIINCREMENT',
+      type: 'loveCcAdd2',
     });
 
-    expect(temp1).toBe(2);
-    expect(temp2).toBe(2);
+    expect(loveYashi).toBe(2);
+    expect(loveCc).toBe(3);
   });
 });

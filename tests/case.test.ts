@@ -1,4 +1,4 @@
-import { createStore, combineReducers } from '../src';
+import { createStore, combineReducers, applyMiddleware } from '../src';
 
 const timelog = (store) => (next) => (action) => {
   console.log(new Date());
@@ -56,9 +56,10 @@ describe('demo-2 test', () => {
       yashi: yashiReducer,
     });
 
-    let store = createStore(reducer);
-    const next = store.dispatch;
-    store.dispatch = stateLog(store)(timelog(store)(next));
+    const newCreateStore = applyMiddleware(timelog, stateLog)(createStore);
+
+    /*返回了一个 dispatch 被重写过的 store*/
+    const store = newCreateStore(reducer);
 
     let loveYashi;
     let loveCc;

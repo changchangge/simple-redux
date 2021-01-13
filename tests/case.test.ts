@@ -1,5 +1,16 @@
 import { createStore, combineReducers } from '../src';
 
+const timelog = (store) => (next) => (action) => {
+  console.log(new Date());
+  next(action);
+};
+
+const stateLog = (store) => (next) => (action) => {
+  console.log('oldState', store.getState());
+  next(action);
+  console.log('newState', store.getState());
+};
+
 describe('demo-2 test', () => {
   it('createStore测试', () => {
     function ccReducer(state, action) {
@@ -46,6 +57,8 @@ describe('demo-2 test', () => {
     });
 
     let store = createStore(reducer);
+    const next = store.dispatch;
+    store.dispatch = stateLog(store)(timelog(store)(next));
 
     let loveYashi;
     let loveCc;

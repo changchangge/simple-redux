@@ -4,7 +4,7 @@ import { State } from './types/store';
 
 type listener = () => any;
 
-function createStore(reducer: Reducer, initState: State): any {
+function createStore(reducer: Reducer, initState?: State): any {
   let state = initState;
   const listeners: listener[] = [];
 
@@ -19,9 +19,11 @@ function createStore(reducer: Reducer, initState: State): any {
     }
   }
 
-  function getState(): State {
+  function getState(): State | undefined {
     return state;
   }
+
+  dispatch({ type: Symbol() });
 
   return {
     subscribe,

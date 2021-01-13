@@ -5,14 +5,15 @@ import { State } from './types/store';
 function combineReducers(reducers: ReducersMapObject): Reducer {
   const keys = Object.keys(reducers);
 
-  function reducer(state: State, action: AnyAction): State {
-    const newState = state;
+  function reducer(state: State = {}, action: AnyAction): State {
+    const newState: State = {};
 
     for (let i = 0; i < keys.length; i++) {
-      newState[keys[i]] = {
-        ...newState,
-        ...reducers[keys[i]](newState[keys[i]], action),
-      };
+      const key = keys[i];
+      const reducer = reducers[key];
+      const previousStateForKey = state[key];
+      const newStateForKey = reducer(previousStateForKey, action);
+      newState[key] = newStateForKey;
     }
 
     return newState;

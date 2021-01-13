@@ -3,6 +3,9 @@ import { createStore, combineReducers } from '../src';
 describe('demo-2 test', () => {
   it('createStore测试', () => {
     function ccReducer(state, action) {
+      if (!state) {
+        state = { loveYashi: 0 };
+      }
       switch (action.type) {
         case 'loveYashiAdd1':
           return {
@@ -19,6 +22,9 @@ describe('demo-2 test', () => {
     }
 
     function yashiReducer(state, action) {
+      if (!state) {
+        state = { loveCc: 0 };
+      }
       switch (action.type) {
         case 'loveCcAdd1':
           return {
@@ -39,19 +45,10 @@ describe('demo-2 test', () => {
       yashi: yashiReducer,
     });
 
-    let initState = {
-      cc: {
-        loveYashi: 1,
-      },
-      yashi: {
-        loveCc: 1,
-      },
-    };
+    let store = createStore(reducer);
 
-    let store = createStore(reducer, initState);
-
-    let loveYashi = initState.cc.loveYashi;
-    let loveCc = initState.yashi.loveCc;
+    let loveYashi;
+    let loveCc;
 
     store.subscribe(() => {
       let state = store.getState();
@@ -59,21 +56,18 @@ describe('demo-2 test', () => {
       loveYashi = state.cc.loveYashi;
     });
 
-    expect(loveYashi).toBe(1);
-    expect(loveCc).toBe(1);
-
     store.dispatch({
       type: 'loveYashiAdd1',
     });
 
-    expect(loveYashi).toBe(2);
-    expect(loveCc).toBe(1);
+    expect(loveYashi).toBe(1);
+    expect(loveCc).toBe(0);
 
     store.dispatch({
       type: 'loveCcAdd2',
     });
 
-    expect(loveYashi).toBe(2);
-    expect(loveCc).toBe(3);
+    expect(loveYashi).toBe(1);
+    expect(loveCc).toBe(2);
   });
 });
